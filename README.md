@@ -8,6 +8,7 @@ A collection of useful recipes for the [WebPageTest API](https://github.com/WebP
 ## Table Of Contents
 
 - [Emulate a slow network](#emulate-a-slow-network)
+- [Emulate a slow network and CPU throttling](#emulate-network-&-cputhrottle)
 
 <h3 id="emulate-a-slow-network">Emulate a slow network</h3>
 
@@ -32,6 +33,36 @@ wpt.runTest(testURL, options, (err, result) => {
     console.log(err);
   }
 });
+
+```
+
+[Source](slow-network.js)
+
+<h3 id="emulate-network-&-cputhrottle">Emulate a slow network and CPU throttling</h3>
+
+```js
+const WebPageTest = require("webpagetest");
+
+const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+
+let testURL = "https://docs.webpagetest.org/"; //Your URL here
+
+// Simulated network & cpu throttling
+let options = {
+  location: "Dulles:Chrome",
+  connectivity: "3G",
+  throttleCPU: 5,
+};
+
+// Run the test
+wpt.runTest(testURL, options, (err, result) => {
+  if (result) {
+    console.log(result);
+  } else {
+    console.log(err);
+  }
+});
+
 
 ```
 
