@@ -12,6 +12,7 @@ A collection of useful recipes for the [WebPageTest API](https://github.com/WebP
 - [Retrieve your Core Web Vitals](#retrieve-your-core-web-vitals)
 - [Retrieve your Core Web Vitals + CrUX data for the tested URL](#retrieve-your-core-web-vitals-+-crux)
 - [Run a test with a third-party domain blocked](#run-a-test-with-a-third-party-domain-blocked)
+- [Run a test and get the filmstrip screenshots](#run-a-test-and-get-the-filmstrip-screenshots)
 
 <h3 id="emulate-a-slow-network">Emulate a slow network</h3>
 
@@ -169,30 +170,41 @@ wpt.getTestResults(testId, (err, result) => {
 
 [Source](webvitals-crux.js)
 
-<h3 id="run-a-test-with-a-third-party-domain-blocked">Run a test with a third-party domain blocked</h3>
+<h3 id="run-a-test-and-get-the-filmstrip-screenshots">Run a test and get the filmstrip screenshots</h3>
 
 ```js
 const WebPageTest = require("webpagetest");
+const fs = require("fs");
+const Stream = require("stream").Transform;
+const https = require("https");
 
 const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
 
-let testURL = "https://theverge.com"; //Your URL here
+const testId = "TEST_ID"; // Your Test Id
 
-// URL's must be seprated by spaces (space-delimited)
-let options = {
-  block:
-    "https://pagead2.googlesyndication.com https://creativecdn.com https://www.googletagmanager.com https://cdn.krxd.net https://adservice.google.com https://cdn.concert.io https://z.moatads.com https://cdn.permutive.com",
-};
-
-// Run the test
-wpt.runTest(testURL, options, (err, result) => {
+wpt.getTestResults(testId, (err, result) => {
   if (result) {
-    console.log(result);
+    result.data.median.firstView.videoFrames.forEach((item, index) => {
+      https
+        .request(item.image, function (response) {
+          var data = new Stream();
+
+          response.on("data", function (chunk) {
+            data.push(chunk);
+          });
+
+          response.on("end", function () {
+            fs.writeFileSync(`screenshot-${index}.png`, data.read());
+          });
+        })
+        .end();
+    });
   } else {
     console.log(err);
   }
 });
 
+
 ```
 
-[Source](third-party-domain-blocked.js)
+[Source](screenshot-strip.js)
