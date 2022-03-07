@@ -10,7 +10,6 @@ A collection of useful recipes for the [WebPageTest API](https://github.com/WebP
 - [Emulate a slow network](#emulate-a-slow-network)
 - [Emulate a slow network and CPU throttling](#emulate-network-&-cputhrottle)
 - [Retrieve your Core Web Vitals](#retrieve-your-core-web-vitals)
-- [Retrieve your Core Web Vitals + CrUX data for the tested URL](#retrieve-your-core-web-vitals-+-crux)
 - [Run a test with a third-party domain blocked](#run-a-test-with-a-third-party-domain-blocked)
 - [Run a test and get the filmstrip screenshots](#run-a-test-and-get-the-filmstrip-screenshots)
 
@@ -108,67 +107,6 @@ wpt.getTestResults(testId, (err, result) => {
 ```
 
 [Source](webvitals.js)
-
-
-<h3 id="retrieve-your-core-web-vitals-+-crux">Retrieve your Core Web Vitals + CrUX data for the tested URL</h3>
-
-```js
-const WebPageTest = require("webpagetest");
-
-const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
-
-// Extract CoreWebVitals + Crux
-const keys = [
-  "chromeUserTiming.navigationStart",
-  "chromeUserTiming.fetchStart",
-  "chromeUserTiming.unloadEventStart",
-  "chromeUserTiming.unloadEventEnd",
-  "chromeUserTiming.commitNavigationEnd",
-  "chromeUserTiming.domLoading",
-  "chromeUserTiming.responseEnd",
-  "chromeUserTiming.firstPaint",
-  "chromeUserTiming.firstContentfulPaint",
-  "chromeUserTiming.firstMeaningfulPaintCandidate",
-  "chromeUserTiming.firstMeaningfulPaint",
-  "chromeUserTiming.firstImagePaint",
-  "chromeUserTiming.LayoutShift",
-  "chromeUserTiming.domInteractive",
-  "chromeUserTiming.domContentLoadedEventStart",
-  "chromeUserTiming.domContentLoadedEventEnd",
-  "chromeUserTiming.domComplete",
-  "chromeUserTiming.loadEventStart",
-  "chromeUserTiming.loadEventEnd",
-  "chromeUserTiming.LargestContentfulPaint",
-  "chromeUserTiming.LargestTextPaint",
-  "chromeUserTiming.LargestImagePaint",
-  "chromeUserTiming.TotalLayoutShift",
-  "chromeUserTiming.CumulativeLayoutShift",
-  "TotalBlockingTime",
-];
-
-const testId = "TEST_ID"; // Your Test Id
-
-wpt.getTestResults(testId, (err, result) => {
-  if (result) {
-    const data = keys.reduce(
-      (key, value) => ({
-        ...key,
-        [value]: result.data.average.firstView[value],
-      }),
-      {}
-    );
-    console.log(data);
-  } else {
-    console.log(err);
-  }
-});
-
-
-
-
-```
-
-[Source](webvitals-crux.js)
 
 <h3 id="run-a-test-and-get-the-filmstrip-screenshots">Run a test and get the filmstrip screenshots</h3>
 
