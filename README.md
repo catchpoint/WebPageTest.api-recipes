@@ -11,6 +11,7 @@ A collection of useful recipes for the [WebPageTest API](https://github.com/WebP
 - [Emulate a slow network and CPU throttling](#emulate-network-&-cputhrottle)
 - [Retrieve your Core Web Vitals](#retrieve-your-core-web-vitals)
 - [Retrieve your Core Web Vitals + CrUX data for the tested URL](#retrieve-your-core-web-vitals-+-crux)
+- [Run a test with a third-party domain blocked](#run-a-test-with-a-third-party-domain-blocked)
 
 <h3 id="emulate-a-slow-network">Emulate a slow network</h3>
 
@@ -167,3 +168,31 @@ wpt.getTestResults(testId, (err, result) => {
 ```
 
 [Source](webvitals-crux.js)
+
+<h3 id="run-a-test-with-a-third-party-domain-blocked">Run a test with a third-party domain blocked</h3>
+
+```js
+const WebPageTest = require("webpagetest");
+
+const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+
+let testURL = "https://theverge.com"; //Your URL here
+
+// URL's must be seprated by spaces (space-delimited)
+let options = {
+  block:
+    "https://pagead2.googlesyndication.com https://creativecdn.com https://www.googletagmanager.com https://cdn.krxd.net https://adservice.google.com https://cdn.concert.io https://z.moatads.com https://cdn.permutive.com",
+};
+
+// Run the test
+wpt.runTest(testURL, options, (err, result) => {
+  if (result) {
+    console.log(result);
+  } else {
+    console.log(err);
+  }
+});
+
+```
+
+[Source](third-party-domain-blocked.js)
