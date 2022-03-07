@@ -135,7 +135,7 @@ wpt.runTest(testURL, options, (err, result) => {
 
 ```
 
-[Source](webvitals.js)
+[Source](third-party-domain-blocked.js)
 
 <h3 id="run-a-test-and-get-the-filmstrip-screenshots">Run a test and get the filmstrip screenshots</h3>
 
