@@ -9,7 +9,7 @@ keys = [
   "TotalBlockingTime",
 ];
 
-const testId = "TEST_ID"; // Your Test Id
+const testId = "TEST_ID"; // Your Test ID
 
 wpt.getTestResults(testId, (err, result) => {
   if (result) {

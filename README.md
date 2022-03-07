@@ -70,7 +70,7 @@ wpt.runTest(testURL, options, (err, result) => {
 
 ```
 
-[Source](slow-network.js)
+[Source](network-and-cpu-throttling.js)
 
 <h3 id="retrieve-your-core-web-vitals">Retrieve your Core Web Vitals</h3>
 
@@ -117,36 +117,13 @@ const WebPageTest = require("webpagetest");
 
 const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
 
-// Extract CoreWebVitals + Crux
-const keys = [
-  "chromeUserTiming.navigationStart",
-  "chromeUserTiming.fetchStart",
-  "chromeUserTiming.unloadEventStart",
-  "chromeUserTiming.unloadEventEnd",
-  "chromeUserTiming.commitNavigationEnd",
-  "chromeUserTiming.domLoading",
-  "chromeUserTiming.responseEnd",
-  "chromeUserTiming.firstPaint",
-  "chromeUserTiming.firstContentfulPaint",
-  "chromeUserTiming.firstMeaningfulPaintCandidate",
-  "chromeUserTiming.firstMeaningfulPaint",
-  "chromeUserTiming.firstImagePaint",
-  "chromeUserTiming.LayoutShift",
-  "chromeUserTiming.domInteractive",
-  "chromeUserTiming.domContentLoadedEventStart",
-  "chromeUserTiming.domContentLoadedEventEnd",
-  "chromeUserTiming.domComplete",
-  "chromeUserTiming.loadEventStart",
-  "chromeUserTiming.loadEventEnd",
-  "chromeUserTiming.LargestContentfulPaint",
-  "chromeUserTiming.LargestTextPaint",
-  "chromeUserTiming.LargestImagePaint",
-  "chromeUserTiming.TotalLayoutShift",
+keys = [
   "chromeUserTiming.CumulativeLayoutShift",
+  "chromeUserTiming.LargestContentfulPaint",
   "TotalBlockingTime",
 ];
 
-const testId = "TEST_ID"; // Your Test Id
+const testId = "TEST_ID"; // Your Test ID
 
 wpt.getTestResults(testId, (err, result) => {
   if (result) {
@@ -157,18 +134,51 @@ wpt.getTestResults(testId, (err, result) => {
       }),
       {}
     );
+    console.log("<-------------Core Web Vitals------------->");
     console.log(data);
+
+    if (result.data.median.firstView.CrUX !== undefined) {
+      console.log("<----------------Crux Data---------------->");
+      console.log(result.data.median.firstView.CrUX);
+    } else {
+      console.log("No CrUX Data Found");
+    }
   } else {
     console.log(err);
   }
 });
 
-
-
-
 ```
 
 [Source](webvitals-crux.js)
+
+<h3 id="run-a-test-with-a-third-party-domain-blocked">Run a test with a third-party domain blocked</h3>
+
+```js
+const WebPageTest = require("webpagetest");
+
+const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+
+let testURL = "https://theverge.com"; //Your URL here
+
+// URL's must be seprated by spaces (space-delimited)
+let options = {
+  block:
+    "https://pagead2.googlesyndication.com https://creativecdn.com https://www.googletagmanager.com https://cdn.krxd.net https://adservice.google.com https://cdn.concert.io https://z.moatads.com https://cdn.permutive.com",
+};
+
+// Run the test
+wpt.runTest(testURL, options, (err, result) => {
+  if (result) {
+    console.log(result);
+  } else {
+    console.log(err);
+  }
+});
+
+```
+
+[Source](third-party-domain-blocked.js)
 
 <h3 id="run-a-test-and-get-the-filmstrip-screenshots">Run a test and get the filmstrip screenshots</h3>
 
