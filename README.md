@@ -9,6 +9,7 @@ A collection of useful recipes for the [WebPageTest API](https://github.com/WebP
 
 - [Emulate a slow network](#emulate-a-slow-network)
 - [Emulate a slow network and CPU throttling](#emulate-network-&-cputhrottle)
+- [Retrieve your Core Web Vitals](#retrieve-your-core-web-vitals)
 
 <h3 id="emulate-a-slow-network">Emulate a slow network</h3>
 
@@ -67,3 +68,40 @@ wpt.runTest(testURL, options, (err, result) => {
 ```
 
 [Source](slow-network.js)
+
+<h3 id="retrieve-your-core-web-vitals">Retrieve your Core Web Vitals</h3>
+
+```js
+const WebPageTest = require("webpagetest");
+
+const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+
+// CoreWebVitals
+keys = [
+  "chromeUserTiming.CumulativeLayoutShift",
+  "chromeUserTiming.LargestContentfulPaint",
+  "TotalBlockingTime",
+];
+
+const testId = "TEST_ID"; // Your Test Id
+
+wpt.getTestResults(testId, (err, result) => {
+  if (result) {
+    const data = keys.reduce(
+      (key, value) => ({
+        ...key,
+        [value]: result.data.average.firstView[value],
+      }),
+      {}
+    );
+    console.log(data);
+  } else {
+    console.log(err);
+  }
+});
+
+
+
+```
+
+[Source](webvitals.js)
