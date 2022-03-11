@@ -13,6 +13,7 @@ A collection of useful recipes for the [WebPageTest API](https://github.com/WebP
 - [Retrieve your Core Web Vitals + CrUX data for the tested URL](#retrieve-your-core-web-vitals-+-crux)
 - [Run a test with a third-party domain blocked](#run-a-test-with-a-third-party-domain-blocked)
 - [Run a test and get the filmstrip screenshots](#run-a-test-and-get-the-filmstrip-screenshots)
+- [Run a test and generate a lighthouse report](#run-a-test-and-generate-a-lighthouse-report)
 
 <h3 id="emulate-a-slow-network">Emulate a slow network</h3>
 
@@ -218,3 +219,31 @@ wpt.getTestResults(testId, (err, result) => {
 ```
 
 [Source](screenshot-strip.js)
+
+<h3 id="run-a-test-and-generate-a-lighthouse-report">Run a test and generate a lighthouse report</h3>
+
+```js
+const WebPageTest = require("webpagetest");
+
+const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+
+let testURL = "https://docs.webpagetest.org/"; //Your URL here
+
+let options = {
+  pollResults: 5,
+  timeout: 240,
+  testtype: "lighthouse",
+};
+
+// Run the test
+wpt.runTest(testURL, options, (err, result) => {
+  if (result) {
+    console.log(result);
+  } else {
+    console.log(err);
+  }
+});
+
+```
+
+[Source](lighthouse.js)
