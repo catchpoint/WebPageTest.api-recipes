@@ -2,7 +2,6 @@ const WebPageTest = require("webpagetest");
 
 const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
 
-// CoreWebVitals
 keys = [
   "chromeUserTiming.CumulativeLayoutShift",
   "chromeUserTiming.LargestContentfulPaint",
@@ -20,7 +19,15 @@ wpt.getTestResults(testId, (err, result) => {
       }),
       {}
     );
+    console.log("<-------------Core Web Vitals------------->");
     console.log(data);
+
+    if (result.data.median.firstView.CrUX !== undefined) {
+      console.log("<----------------Crux Data---------------->");
+      console.log(result.data.median.firstView.CrUX);
+    } else {
+      console.log("No CrUX Data Found");
+    }
   } else {
     console.log(err);
   }

@@ -5,7 +5,7 @@ const https = require("https");
 
 const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
 
-const testId = "TEST_ID"; // Your Test Id
+const testId = "TEST_ID"; // Your Test ID
 
 wpt.getTestResults(testId, (err, result) => {
   if (result) {

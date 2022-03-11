@@ -12,6 +12,7 @@ A collection of useful recipes for the [WebPageTest API](https://github.com/WebP
 - [Retrieve your Core Web Vitals](#retrieve-your-core-web-vitals)
 - [Run a test with a third-party domain blocked](#run-a-test-with-a-third-party-domain-blocked)
 - [Run a test and get the filmstrip screenshots](#run-a-test-and-get-the-filmstrip-screenshots)
+- [Run a test and generate a lighthouse report](#run-a-test-and-generate-a-lighthouse-report)
 
 <h3 id="emulate-a-slow-network">Emulate a slow network</h3>
 
@@ -69,7 +70,7 @@ wpt.runTest(testURL, options, (err, result) => {
 
 ```
 
-[Source](slow-network.js)
+[Source](network-and-cpu-throttling.js)
 
 <h3 id="retrieve-your-core-web-vitals">Retrieve your Core Web Vitals</h3>
 
@@ -108,6 +109,63 @@ wpt.getTestResults(testId, (err, result) => {
 
 [Source](webvitals.js)
 
+
+<h3 id="run-a-test-with-a-third-party-domain-blocked">Run a test with a third-party domain blocked</h3>
+
+```js
+const WebPageTest = require("webpagetest");
+
+const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+
+<<<<<<< HEAD
+let testURL = "https://theverge.com"; //Your URL here
+
+// URL's must be seprated by spaces (space-delimited)
+let options = {
+  block:
+    "https://pagead2.googlesyndication.com https://creativecdn.com https://www.googletagmanager.com https://cdn.krxd.net https://adservice.google.com https://cdn.concert.io https://z.moatads.com https://cdn.permutive.com",
+};
+=======
+keys = [
+  "chromeUserTiming.CumulativeLayoutShift",
+  "chromeUserTiming.LargestContentfulPaint",
+  "TotalBlockingTime",
+];
+
+const testId = "TEST_ID"; // Your Test ID
+>>>>>>> be670f84e8d25e6b3573d7ff9cafa63c293d53fc
+
+// Run the test
+wpt.runTest(testURL, options, (err, result) => {
+  if (result) {
+<<<<<<< HEAD
+    console.log(result);
+=======
+    const data = keys.reduce(
+      (key, value) => ({
+        ...key,
+        [value]: result.data.average.firstView[value],
+      }),
+      {}
+    );
+    console.log("<-------------Core Web Vitals------------->");
+    console.log(data);
+
+    if (result.data.median.firstView.CrUX !== undefined) {
+      console.log("<----------------Crux Data---------------->");
+      console.log(result.data.median.firstView.CrUX);
+    } else {
+      console.log("No CrUX Data Found");
+    }
+>>>>>>> be670f84e8d25e6b3573d7ff9cafa63c293d53fc
+  } else {
+    console.log(err);
+  }
+});
+
+```
+
+[Source](third-party-domain-blocked.js)
 
 <h3 id="run-a-test-with-a-third-party-domain-blocked">Run a test with a third-party domain blocked</h3>
 
@@ -175,3 +233,31 @@ wpt.getTestResults(testId, (err, result) => {
 ```
 
 [Source](screenshot-strip.js)
+
+<h3 id="run-a-test-and-generate-a-lighthouse-report">Run a test and generate a lighthouse report</h3>
+
+```js
+const WebPageTest = require("webpagetest");
+
+const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+
+let testURL = "https://docs.webpagetest.org/"; //Your URL here
+
+let options = {
+  pollResults: 5,
+  timeout: 240,
+  testtype: "lighthouse",
+};
+
+// Run the test
+wpt.runTest(testURL, options, (err, result) => {
+  if (result) {
+    console.log(result);
+  } else {
+    console.log(err);
+  }
+});
+
+```
+
+[Source](lighthouse.js)
