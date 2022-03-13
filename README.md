@@ -10,9 +10,11 @@ A collection of useful recipes for the [WebPageTest API](https://github.com/WebP
 - [Emulate a slow network](#emulate-a-slow-network)
 - [Emulate a slow network and CPU throttling](#emulate-network-&-cputhrottle)
 - [Retrieve your Core Web Vitals](#retrieve-your-core-web-vitals)
+- [Retrieve your Core Web Vitals + CrUX data for the tested URL](#retrieve-your-core-web-vitals-+-crux)
 - [Run a test with a third-party domain blocked](#run-a-test-with-a-third-party-domain-blocked)
 - [Run a test and get the filmstrip screenshots](#run-a-test-and-get-the-filmstrip-screenshots)
 - [Run a test and generate a lighthouse report](#run-a-test-and-generate-a-lighthouse-report)
+- [Run a multi-step test with scripting](#run-a-multi-step-test-with-scripting)
 
 <h3 id="emulate-a-slow-network">Emulate a slow network</h3>
 
@@ -110,22 +112,13 @@ wpt.getTestResults(testId, (err, result) => {
 [Source](webvitals.js)
 
 
-<h3 id="run-a-test-with-a-third-party-domain-blocked">Run a test with a third-party domain blocked</h3>
+<h3 id="retrieve-your-core-web-vitals-+-crux">Retrieve your Core Web Vitals + CrUX data for the tested URL</h3>
 
 ```js
 const WebPageTest = require("webpagetest");
 
 const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
 
-<<<<<<< HEAD
-let testURL = "https://theverge.com"; //Your URL here
-
-// URL's must be seprated by spaces (space-delimited)
-let options = {
-  block:
-    "https://pagead2.googlesyndication.com https://creativecdn.com https://www.googletagmanager.com https://cdn.krxd.net https://adservice.google.com https://cdn.concert.io https://z.moatads.com https://cdn.permutive.com",
-};
-=======
 keys = [
   "chromeUserTiming.CumulativeLayoutShift",
   "chromeUserTiming.LargestContentfulPaint",
@@ -133,14 +126,9 @@ keys = [
 ];
 
 const testId = "TEST_ID"; // Your Test ID
->>>>>>> be670f84e8d25e6b3573d7ff9cafa63c293d53fc
 
-// Run the test
-wpt.runTest(testURL, options, (err, result) => {
+wpt.getTestResults(testId, (err, result) => {
   if (result) {
-<<<<<<< HEAD
-    console.log(result);
-=======
     const data = keys.reduce(
       (key, value) => ({
         ...key,
@@ -157,7 +145,6 @@ wpt.runTest(testURL, options, (err, result) => {
     } else {
       console.log("No CrUX Data Found");
     }
->>>>>>> be670f84e8d25e6b3573d7ff9cafa63c293d53fc
   } else {
     console.log(err);
   }
@@ -165,7 +152,7 @@ wpt.runTest(testURL, options, (err, result) => {
 
 ```
 
-[Source](third-party-domain-blocked.js)
+[Source](webvitals-crux.js)
 
 <h3 id="run-a-test-with-a-third-party-domain-blocked">Run a test with a third-party domain blocked</h3>
 
@@ -261,3 +248,40 @@ wpt.runTest(testURL, options, (err, result) => {
 ```
 
 [Source](lighthouse.js)
+
+<h3 id="run-a-multi-step-test-with-scripting">Run a multi-step test with scripting</h3>
+
+```js
+const WebPageTest = require("webpagetest");
+
+const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+
+let options = {
+  pollResults: 5,
+  firstViewOnly: true, //Skips the Repeat View test
+};
+
+const script = wpt.scriptToString([
+  { logData: 0 },
+  { navigate: "http://foo.com/login" },
+  { logData: 1 },
+  { setValue: ["name=username", "johndoe"] },
+  { setValue: ["name=password", "12345"] },
+  { submitForm: "action=http://foo.com/main" },
+  "waitForComplete",
+]);
+
+// Run the test
+wpt.runTest(script, options, (err, result) => {
+  if (result) {
+    console.log(result);
+  } else {
+    console.log(err);
+  }
+});
+
+```
+
+Visit [Scripting Docs](https://docs.webpagetest.org/scripting/) for more information 
+
+[Source](multistep.js)
