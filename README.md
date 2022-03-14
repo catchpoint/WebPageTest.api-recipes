@@ -14,6 +14,7 @@ A collection of useful recipes for the [WebPageTest API](https://github.com/WebP
 - [Run a test with a third-party domain blocked](#run-a-test-with-a-third-party-domain-blocked)
 - [Run a test and get the filmstrip screenshots](#run-a-test-and-get-the-filmstrip-screenshots)
 - [Run a test and generate a lighthouse report](#run-a-test-and-generate-a-lighthouse-report)
+- [Run a multi-step test with scripting](#run-a-multi-step-test-with-scripting)
 
 <h3 id="emulate-a-slow-network">Emulate a slow network</h3>
 
@@ -247,3 +248,40 @@ wpt.runTest(testURL, options, (err, result) => {
 ```
 
 [Source](lighthouse.js)
+
+<h3 id="run-a-multi-step-test-with-scripting">Run a multi-step test with scripting</h3>
+
+```js
+const WebPageTest = require("webpagetest");
+
+const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+
+let options = {
+  pollResults: 5,
+  firstViewOnly: true, //Skips the Repeat View test
+};
+
+const script = wpt.scriptToString([
+  { logData: 0 },
+  { navigate: "http://foo.com/login" },
+  { logData: 1 },
+  { setValue: ["name=username", "johndoe"] },
+  { setValue: ["name=password", "12345"] },
+  { submitForm: "action=http://foo.com/main" },
+  "waitForComplete",
+]);
+
+// Run the test
+wpt.runTest(script, options, (err, result) => {
+  if (result) {
+    console.log(result);
+  } else {
+    console.log(err);
+  }
+});
+
+```
+
+Visit [Scripting Docs](https://docs.webpagetest.org/scripting/) for more information 
+
+[Source](multistep.js)
