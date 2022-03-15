@@ -41,6 +41,7 @@ wpt.runTest(testURL, options, (err, result) => {
 });
 
 ```
+![Slow-network](/assets/images/basic-test.png "Emulate a slow network using Webpagetest")
 
 [Source](slow-network.js)
 
