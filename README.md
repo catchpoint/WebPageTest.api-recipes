@@ -15,6 +15,7 @@ A collection of useful recipes for the [WebPageTest API](https://github.com/WebP
 - [Run a test and get the filmstrip screenshots](#run-a-test-and-get-the-filmstrip-screenshots)
 - [Run a test and generate a lighthouse report](#run-a-test-and-generate-a-lighthouse-report)
 - [Run a multi-step test with scripting](#run-a-multi-step-test-with-scripting)
+- [Run a test and generate a waterfall image](#run-a-test-and-generate-a-waterfall-image)
 
 <h3 id="emulate-a-slow-network">Emulate a slow network</h3>
 
@@ -302,3 +303,43 @@ wpt.runTest(script, options, (err, result) => {
 Visit [Scripting Docs](https://docs.webpagetest.org/scripting/) for more information 
 
 [Source](multistep.js)
+
+
+<h3 id="run-a-test-and-generate-a-waterfall-image">Run a test and generate a waterfall image</h3>
+
+```js
+const WebPageTest = require("webpagetest");
+const fs = require("fs");
+const axios = require("axios");
+
+const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+
+let testURL = "https://docs.webpagetest.org/"; //Your URL here
+
+let options = {
+  firstViewOnly: true,
+  location: "Dulles:Chrome",
+  connectivity: "4G",
+  pollResults: 5, //keep polling for results after test is scheduled
+};
+
+wpt.runTest(testURL, options, (err, result) => {
+  if (result) {
+    let imgurl = result.data.median.firstView.images.waterfall;
+
+    axios({
+      method: "get",
+      url: imgurl,
+      responseType: "stream",
+    }).then(function (response) {
+      response.data.pipe(fs.createWriteStream("waterfall.png"));
+    });
+  } else {
+    console.log(err);
+  }
+});
+
+```
+![waterfall image](/assets/images/waterfall.png "MarineGEO logo")
+
+[Source](waterfall-image.js)
