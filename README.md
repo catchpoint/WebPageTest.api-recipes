@@ -89,9 +89,16 @@ keys = [
   "TotalBlockingTime",
 ];
 
-const testId = "TEST_ID"; // Your Test Id
+let testURL = "https://docs.webpagetest.org/"; //Your URL here
 
-wpt.getTestResults(testId, (err, result) => {
+let options = {
+  firstViewOnly: true,
+  location: "Dulles:Chrome",
+  pollResults: 5,
+  timeout: 240,
+};
+
+wpt.runTest(testURL, options, (err, result) => {
   if (result) {
     const data = keys.reduce(
       (key, value) => ({
@@ -106,9 +113,8 @@ wpt.getTestResults(testId, (err, result) => {
   }
 });
 
-
-
 ```
+![Webvitals](/assets/images/webvitals.png "Get your webvitals using webpagetest WPT")
 
 [Source](webvitals.js)
 
