@@ -159,6 +159,8 @@ wpt.runTest(testURL, options, (err, result) => {
 
 ```
 
+![Webvitals + CrUX](/assets/images/crux.png "Generate a CrUX report using webpagetest WPT")
+
 [Source](webvitals-crux.js)
 
 <h3 id="run-a-test-with-a-third-party-domain-blocked">Run a test with a third-party domain blocked</h3>
