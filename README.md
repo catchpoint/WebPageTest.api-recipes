@@ -113,6 +113,7 @@ wpt.runTest(testURL, options, (err, result) => {
 });
 
 ```
+![Webvitals](/assets/images/webvitals.png "Get your webvitals using webpagetest WPT")
 
 [Source](webvitals.js)
 
