@@ -217,6 +217,7 @@ wpt.runTest(testURL, options, (err, result) => {
 });
 
 ```
+![Screenshot strip](/assets/images/screenshot-strip.jpg "Screenshot strip Webpagetest WPT")
 
 [Source](screenshot-strip.js)
 
