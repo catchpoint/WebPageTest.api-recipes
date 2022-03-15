@@ -246,6 +246,7 @@ wpt.runTest(testURL, options, (err, result) => {
 });
 
 ```
+![Lighthouse report by Webpagetest WPT](/assets/images/lighthouse.png "Lighthouse report")
 
 [Source](lighthouse.js)
 
