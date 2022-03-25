@@ -16,6 +16,7 @@ A collection of useful recipes for the [WebPageTest API](https://github.com/WebP
 - [Run a test and generate a lighthouse report](#run-a-test-and-generate-a-lighthouse-report)
 - [Run a multi-step test with scripting](#run-a-multi-step-test-with-scripting)
 - [Run a test and generate a waterfall image](#run-a-test-and-generate-a-waterfall-image)
+- [Run tests on multiple URLs](#run-tests-on-multiple-urls)
 
 <h3 id="emulate-a-slow-network">Emulate a slow network</h3>
 
@@ -343,3 +344,76 @@ wpt.runTest(testURL, options, (err, result) => {
 ![waterfall image](/assets/images/waterfall.png "MarineGEO logo")
 
 [Source](waterfall-image.js)
+
+<h3 id="run-tests-on-multiple-urls">Run tests on multiple URLs</h3>
+
+```js
+const WebPageTest = require("webpagetest");
+
+const wpt = new WebPageTest("www.webpagetest.org", "YOUR_API_KEY");
+const finalResults = [];
+
+// Your list of URLs to test
+let urls = [
+  "https://www.webpagetest.org/",
+  "https://www.product.webpagetest.org/api",
+  "https://docs.webpagetest.org/api/",
+  "https://blog.webpagetest.org/",
+  "https://www.webpagetest.org/about",
+];
+
+let options = {
+  firstViewOnly: true,
+  location: "Dulles:Chrome",
+  connectivity: "4G",
+  pollResults: 5,
+  timeout: 240,
+};
+
+const runTest = (wpt, url, options) => {
+  return new Promise((resolve, reject) => {
+    console.log(`Submitting test for ${url}...`);
+    wpt.runTest(url, options, async (err, result) => {
+      try {
+        if (result) {
+          return resolve(result);
+        } else {
+          return reject(err);
+        }
+      } catch (e) {
+        console.info(e);
+      }
+    });
+  });
+};
+
+(async function () {
+  Promise.all(
+    urls.map(async (url) => {
+      try {
+        await runTest(wpt, url, options).then(async (result) => {
+          if (result.data) {
+            let median = result.data.median.firstView;
+            //Pushing the data into the Array
+            finalResults.push({
+              id: result.data.id,
+              url: result.data.url,
+              cls: median["chromeUserTiming.CumulativeLayoutShift"],
+              lcp: median["chromeUserTiming.LargestContentfulPaint"],
+              tbt: median["TotalBlockingTime"],
+            });
+          }
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    })
+  ).then(() => {
+    console.info(finalResults);
+  });
+})();
+
+```
+![Bulk Tests URLs using WebPageTest WPT](/assets/images/bulk-tests.png "Bulk Tests")
+
+[Source](bulk-tests.js)
