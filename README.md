@@ -341,7 +341,7 @@ wpt.runTest(testURL, options, (err, result) => {
 });
 
 ```
-![waterfall image](/assets/images/waterfall.png "MarineGEO logo")
+![Waterfall image by WbePagetest WPT](/assets/images/waterfall.png "Waterfall image")
 
 [Source](waterfall-image.js)
 
