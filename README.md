@@ -242,6 +242,12 @@ wpt.runTest(testURL, options, (err, result) => {
 <h3 id="run-a-test-and-generate-a-lighthouse-report">Run a test and generate a lighthouse report</h3>
 
 ```js
+const WebPageTest = require("webpagetest");
+
+const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+
+let testURL = "https://docs.webpagetest.org/"; //Your URL here
+
 let options = {
   pollResults: 5,
   timeout: 240,
