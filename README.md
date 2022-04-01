@@ -251,7 +251,7 @@ let testURL = "https://docs.webpagetest.org/"; //Your URL here
 let options = {
   pollResults: 5,
   timeout: 240,
-  lighthouse: 1
+  lighthouse: 1, // This parameter will generate both WPT results and Lighthouse report
 };
 
 // Run the test
