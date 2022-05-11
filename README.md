@@ -17,7 +17,7 @@ A collection of useful recipes for the [WebPageTest API](https://github.com/WebP
 - [Run a multi-step test with scripting](#run-a-multi-step-test-with-scripting)
 - [Run a test and generate a waterfall image](#run-a-test-and-generate-a-waterfall-image)
 - [Run tests on multiple URLs](#run-tests-on-multiple-urls)
-- [Run a test and check a budget using testspecs](#run-a-test-and-check-a-budget-using-testspecs)
+- [Create a URL endpoint](#create-a-url-endpoint)
 
 <h3 id="emulate-a-slow-network">Emulate a slow network</h3>
 
@@ -413,45 +413,36 @@ const runTest = (wpt, url, options) => {
 
 [Source](bulk-tests.js)
 
-
-<h3 id="run-a-test-and-check-a-budget-using-testspecs">Run a test and check a budget using testspecs</h3>
+<h3 id="create-a-url-endpoint">Create a URL endpoint</h3>
 
 ```js
 const WebPageTest = require("webpagetest");
 
 const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
 
-let testURL = "https://docs.webpagetest.org/"; //Your URL here
-
 let options = {
-  firstViewOnly: true,
-  location: "Dulles:Chrome",
-  pollResults: 5,
-  timeout: 240,
-  // Set you budget specs here
-  specs: {
-    average: {
-      firstView: {
-        "chromeUserTiming.CumulativeLayoutShift": 0.1,
-        "chromeUserTiming.LargestContentfulPaint": 2500,
-        firstContentfulPaint: 2000,
-        TotalBlockingTime: 0.1,
-      },
-    },
-  },
+  dryRun: true, // outputs the api endpoint
 };
 
-wpt.runTest(testURL, options, (err, result) => {
+// multistep script
+const script = wpt.scriptToString([
+  { navigate: 'https://timkadlec.com/' },
+  { execAndWait: 'document.querySelector("#nav > ul > li:nth-child(2) > a").click();' },
+  { execAndWait: 'document.querySelector("#nav > ul > li:nth-child(3) > a").click();' },
+  { execAndWait: 'document.querySelector("#nav > ul > li:nth-child(4) > a").click();' },
+]);
+
+// fire up the runtest function with a script or a url
+wpt.runTest(script, options, (err, result) => {
   if (result) {
-    console.log(`Your results are here for test ID:- ${result.testId}`);
+    console.log(result);
   } else {
     console.log(err);
   }
 });
 
+
 ```
-![Check a budget using testspecs](/assets/images/specs.png "testspecs")
+![Generate a url using dryRun option](/assets/images/dryrun.png "DryRun Test")
 
-Check https://github.com/WebPageTest/webpagetest-api/wiki/Test-Specs for more details on setting a budget using testspecs
-
-[Source](testspecs.js)
+[Source](dryrun.js)
