@@ -18,6 +18,7 @@ A collection of useful recipes for the [WebPageTest API](https://github.com/WebP
 - [Run a test and generate a waterfall image](#run-a-test-and-generate-a-waterfall-image)
 - [Run tests on multiple URLs](#run-tests-on-multiple-urls)
 - [Create a URL endpoint](#create-a-url-endpoint)
+- [Run a test and check a budget using testspecs](#run-a-test-and-check-a-budget-using-testspecs)
 
 <h3 id="emulate-a-slow-network">Emulate a slow network</h3>
 
@@ -446,3 +447,45 @@ wpt.runTest(script, options, (err, result) => {
 ![Generate a url using dryRun option](/assets/images/dryrun.png "DryRun Test")
 
 [Source](dryrun.js)
+
+<h3 id="run-a-test-and-check-a-budget-using-testspecs">Run a test and check a budget using testspecs</h3>
+
+```js
+const WebPageTest = require("webpagetest");
+
+const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+
+let testURL = "https://docs.webpagetest.org/"; //Your URL here
+
+let options = {
+  firstViewOnly: true,
+  location: "Dulles:Chrome",
+  pollResults: 5,
+  timeout: 240,
+  // Set you budget specs here
+  specs: {
+    average: {
+      firstView: {
+        "chromeUserTiming.CumulativeLayoutShift": 0.1,
+        "chromeUserTiming.LargestContentfulPaint": 2500,
+        firstContentfulPaint: 2000,
+        TotalBlockingTime: 0.1,
+      },
+    },
+  },
+};
+
+wpt.runTest(testURL, options, (err, result) => {
+  if (result) {
+    console.log(`Your results are here for test ID:- ${result.testId}`);
+  } else {
+    console.log(err);
+  }
+});
+
+```
+![Check a budget using testspecs](/assets/images/specs.png "testspecs")
+
+Check https://github.com/WebPageTest/webpagetest-api/wiki/Test-Specs for more details on setting a budget using testspecs
+
+[Source](testspecs.js)
