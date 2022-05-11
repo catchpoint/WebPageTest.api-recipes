@@ -17,6 +17,7 @@ A collection of useful recipes for the [WebPageTest API](https://github.com/WebP
 - [Run a multi-step test with scripting](#run-a-multi-step-test-with-scripting)
 - [Run a test and generate a waterfall image](#run-a-test-and-generate-a-waterfall-image)
 - [Run tests on multiple URLs](#run-tests-on-multiple-urls)
+- [Create a URL endpoint](#create-a-url-endpoint)
 
 <h3 id="emulate-a-slow-network">Emulate a slow network</h3>
 
@@ -411,3 +412,37 @@ const runTest = (wpt, url, options) => {
 ![Bulk Tests URLs using WebPageTest WPT](/assets/images/bulk-tests.png "Bulk Tests")
 
 [Source](bulk-tests.js)
+
+<h3 id="create-a-url-endpoint">Create a URL endpoint</h3>
+
+```js
+const WebPageTest = require("webpagetest");
+
+const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+
+let options = {
+  dryRun: true, // outputs the api endpoint
+};
+
+// multistep script
+const script = wpt.scriptToString([
+  { navigate: 'https://timkadlec.com/' },
+  { execAndWait: 'document.querySelector("#nav > ul > li:nth-child(2) > a").click();' },
+  { execAndWait: 'document.querySelector("#nav > ul > li:nth-child(3) > a").click();' },
+  { execAndWait: 'document.querySelector("#nav > ul > li:nth-child(4) > a").click();' },
+]);
+
+// fire up the runtest function with a script or a url
+wpt.runTest(script, options, (err, result) => {
+  if (result) {
+    console.log(result);
+  } else {
+    console.log(err);
+  }
+});
+
+
+```
+![Generate a url using dryRun option](/assets/images/dryrun.png "DryRun Test")
+
+[Source](dryrun.js)
