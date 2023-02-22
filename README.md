@@ -9,6 +9,7 @@ A collection of useful recipes for the [WebPageTest API](https://github.com/WebP
 
 - [Emulate a slow network](#emulate-a-slow-network)
 - [Emulate a slow network and CPU throttling](#emulate-network-&-cputhrottle)
+- [Emulate a custom connectivity (Bandwidth, Latency, PacketLossRate)](#emulate-a-custom-connectivity)
 - [Retrieve your Core Web Vitals](#retrieve-your-core-web-vitals)
 - [Retrieve your Core Web Vitals + CrUX data for the tested URL](#retrieve-your-core-web-vitals-+-crux)
 - [Run a test with a third-party domain blocked](#run-a-test-with-a-third-party-domain-blocked)
@@ -78,6 +79,39 @@ wpt.runTest(testURL, options, (err, result) => {
 ```
 
 [Source](network-and-cpu-throttling.js)
+
+<h3 id="emulate-a-custom-connectivity">Emulate a custom connectivity (Bandwidth, Latency, PacketLossRate)</h3>
+
+```js
+const WebPageTest = require("webpagetest");
+
+const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+
+let testURL = "https://docs.webpagetest.org/"; //Your URL here
+
+// Simulated custom connectivity options (custom)
+let options = {
+  connectivity: "custom",
+  location: "ec2-us-east-1:Chrome",
+  label: "custom connectivity",
+  bandwidthDown: 1000,
+  bandwidthUp: 1000,
+  latency: 5,
+  packetLossRate: 5,
+};
+
+// Run the test
+wpt.runTest(testURL, options, (err, result) => {
+  if (result) {
+    console.log(result);
+  } else {
+    console.log(err);
+  }
+});
+
+```
+
+[Source](connectivity-custom.js)
 
 <h3 id="retrieve-your-core-web-vitals">Retrieve your Core Web Vitals</h3>
 
