@@ -1,11 +1,13 @@
-<p align="center"><img src="https://docs.webpagetest.org/img/wpt-navy-logo.png" alt="WebPageTest Logo" /></p>
-<p align="center"><a href="https://docs.webpagetest.org/api/integrations/#officially-supported-integrations">Learn about more WebPageTest API Integrations in our docs</a></p>
+<p align="center"><img width="80%" alt="Webpagetest Recipes Banner" src="assets/images/recipe-banner.png"></p>
+<h1 align="center">
+WebPageTest API Recipes
+</h1>
+<p align="center" style="font-size: 1.2rem;">
+👩‍🍳 A collection of useful recipes for the <a href="https://github.com/WebPageTest/webpagetest-api">WebPageTest API</a>
+</p>
+<p align="center" style="font-size: 1.2rem;">🍔 What's your favorite recipe?</p>
 
-# WebPageTest-API-Recipes
-
-A collection of useful recipes for the [WebPageTest API](https://github.com/WebPageTest/webpagetest-api)
-
-## Table Of Contents
+## 📖Table Of Contents
 
 - [Emulate a slow network](#emulate-a-slow-network)
 - [Emulate a slow network and CPU throttling](#emulate-network-&-cputhrottle)
