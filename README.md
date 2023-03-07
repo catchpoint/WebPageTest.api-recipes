@@ -1,4 +1,4 @@
-<p align="center"><img width="80%" alt="Webpagetest Recipes Banner" src="assets/images/recipe-banner.png"></p>
+<p align="center"><img width="80%" alt="Webpagetest Recipes Banner" src="assets/images/recipe-banner.jpg"></p>
 <h1 align="center">
 WebPageTest API Recipes
 </h1>
