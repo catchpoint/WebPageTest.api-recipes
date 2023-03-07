@@ -22,6 +22,7 @@ WebPageTest API Recipes
 - [Run tests on multiple URLs](#run-tests-on-multiple-urls)
 - [Create a URL endpoint](#create-a-url-endpoint)
 - [Run a test and check a budget using testspecs](#run-a-test-and-check-a-budget-using-testspecs)
+- [Run a test using webpagetest chrome recorder](#run-a-test-using-webpagetest-chrome-recorder)
 
 <h3 id="emulate-a-slow-network">Emulate a slow network</h3>
 
@@ -522,6 +523,83 @@ wpt.runTest(testURL, options, (err, result) => {
 ```
 ![Check a budget using testspecs](/assets/images/specs.png "testspecs")
 
-Check https://github.com/WebPageTest/webpagetest-api/wiki/Test-Specs for more details on setting a budget using testspecs
+Check [Testspecs](https://github.com/WebPageTest/webpagetest-api/wiki/Test-Specs) for more details on setting a budget
+
+[Source](testspecs.js)
+
+<h3 id="run-a-test-using-webpagetest-chrome-recorder">Run a test using webpagetest chrome recorder</h3>
+
+```js
+import WebPageTest from "webpagetest";
+import { WPTStringifyChromeRecording } from "webpagetest-chrome-recorder";
+
+//Recording generated using chrome recorder
+const recordingContent = {
+  title: "Webpagetest Chrome Recorder",
+  steps: [
+    {
+      type: "setViewport",
+      width: 1263,
+      height: 600,
+      deviceScaleFactor: 1,
+      isMobile: false,
+      hasTouch: false,
+      isLandscape: false,
+    },
+    {
+      type: "navigate",
+      url: "https://blog.webpagetest.org/",
+      assertedEvents: [
+        {
+          type: "navigation",
+          url: "https://blog.webpagetest.org/",
+          title: "WebPageTest Blog",
+        },
+      ],
+    },
+    {
+      type: "click",
+      target: "main",
+      selectors: [["header li:nth-of-type(2) > a"]],
+      offsetY: 27.802078247070312,
+      offsetX: 26.427078247070312,
+      assertedEvents: [
+        {
+          type: "navigation",
+          url: "https://blog.webpagetest.org/categories/webpagetest-news/",
+          title: "",
+        },
+      ],
+    },
+  ],
+};
+
+//Converting json recording to webpagetest script
+const script = await WPTStringifyChromeRecording(recordingContent);
+console.log("\nStringified Webpagetest Recorder Script: \n\n" + script + "\n");
+
+// Initializing webpagetest
+const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+
+let options = {
+  firstViewOnly: true,
+  label: recordingContent.title,
+};
+
+console.log("Webpagetest Custom Script Test Result: \n");
+
+// Run the test using webpagetest script
+wpt.runTest(script, options, (err, result) => {
+  if (result) {
+    console.log(result);
+  } else {
+    console.log(err);
+  }
+});
+
+```
+![Run a test using webpagetest chrome recorder](/assets/images/webpagetest-chrome-recorder.png "testspecs")
+
+Check [Webpagetest Chrome Recorder](https://github.com/WebPageTest/recorder-to-webpagetest-chrome-extension) for more details
 
 [Source](testspecs.js)
