@@ -1,4 +1,4 @@
-const WebPageTest = require("webpagetest");
+import WebPageTest from "webpagetest";
 
 const wpt = new WebPageTest("www.webpagetest.org", "YOUR_API_KEY");
 const finalResults = [];
