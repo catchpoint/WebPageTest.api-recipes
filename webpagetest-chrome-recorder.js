@@ -44,7 +44,7 @@ const recordingContent = {
 
 //Converting json recording to webpagetest script
 const script = await WPTStringifyChromeRecording(recordingContent);
-console.log("\nStringified Webpagetest Recorder Script: \n\n" + script + "\n");
+console.log("Stringified Webpagetest Recorder Script: \n\n" + script + "\n");
 
 // Initializing webpagetest
 const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");

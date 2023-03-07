@@ -576,7 +576,7 @@ const recordingContent = {
 
 //Converting json recording to webpagetest script
 const script = await WPTStringifyChromeRecording(recordingContent);
-console.log("\nStringified Webpagetest Recorder Script: \n\n" + script + "\n");
+console.log("Stringified Webpagetest Recorder Script: \n\n" + script + "\n");
 
 // Initializing webpagetest
 const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
@@ -602,4 +602,4 @@ wpt.runTest(script, options, (err, result) => {
 
 Check [Webpagetest Chrome Recorder](https://github.com/WebPageTest/recorder-to-webpagetest-chrome-extension) for more details
 
-[Source](testspecs.js)
+[Source](webpagetest-chrome-recorder.js)
