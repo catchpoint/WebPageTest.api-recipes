@@ -26,7 +26,7 @@ WebPageTest API Recipes
 <h3 id="emulate-a-slow-network">Emulate a slow network</h3>
 
 ```js
-const WebPageTest = require("webpagetest");
+import WebPageTest from "webpagetest";
 
 const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
 
@@ -55,7 +55,7 @@ wpt.runTest(testURL, options, (err, result) => {
 <h3 id="emulate-network-&-cputhrottle">Emulate a slow network and CPU throttling</h3>
 
 ```js
-const WebPageTest = require("webpagetest");
+import WebPageTest from "webpagetest";
 
 const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
 
@@ -85,7 +85,7 @@ wpt.runTest(testURL, options, (err, result) => {
 <h3 id="emulate-a-custom-connectivity">Emulate a custom connectivity (Bandwidth, Latency, PacketLossRate)</h3>
 
 ```js
-const WebPageTest = require("webpagetest");
+import WebPageTest from "webpagetest";
 
 const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
 
@@ -118,7 +118,7 @@ wpt.runTest(testURL, options, (err, result) => {
 <h3 id="retrieve-your-core-web-vitals">Retrieve your Core Web Vitals</h3>
 
 ```js
-const WebPageTest = require("webpagetest");
+import WebPageTest from "webpagetest";
 
 const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
 
@@ -153,7 +153,7 @@ wpt.runTest(testURL, options, (err, result) => {
 <h3 id="retrieve-your-core-web-vitals-+-crux">Retrieve your Core Web Vitals + CrUX data for the tested URL</h3>
 
 ```js
-const WebPageTest = require("webpagetest");
+import WebPageTest from "webpagetest";
 
 const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
 
@@ -195,7 +195,7 @@ wpt.runTest(testURL, options, (err, result) => {
 <h3 id="run-a-test-with-a-third-party-domain-blocked">Run a test with a third-party domain blocked</h3>
 
 ```js
-const WebPageTest = require("webpagetest");
+import WebPageTest from "webpagetest";
 
 const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
 
@@ -223,9 +223,9 @@ wpt.runTest(testURL, options, (err, result) => {
 <h3 id="run-a-test-and-get-the-filmstrip-screenshots">Run a test and get the filmstrip screenshots</h3>
 
 ```js
-const WebPageTest = require("webpagetest");
-const fs = require("fs");
-const axios = require("axios");
+import WebPageTest from "webpagetest";
+import fs from "fs";
+import axios from "axios";
 
 const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
 
@@ -262,7 +262,7 @@ wpt.runTest(testURL, options, (err, result) => {
 <h3 id="run-a-test-and-generate-a-lighthouse-report">Run a test and generate a lighthouse report</h3>
 
 ```js
-const WebPageTest = require("webpagetest");
+import WebPageTest from "webpagetest";
 
 const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
 
@@ -303,7 +303,7 @@ wpt.runTest(testURL, options, (err, result) => {
 <h3 id="run-a-multi-step-test-with-scripting">Run a multi-step test with scripting</h3>
 
 ```js
-const WebPageTest = require("webpagetest");
+import WebPageTest from "webpagetest";
 
 const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
 
@@ -341,9 +341,9 @@ Visit [Scripting Docs](https://docs.webpagetest.org/scripting/) for more informa
 <h3 id="run-a-test-and-generate-a-waterfall-image">Run a test and generate a waterfall image</h3>
 
 ```js
-const WebPageTest = require("webpagetest");
-const fs = require("fs");
-const axios = require("axios");
+import WebPageTest from "webpagetest";
+import fs from "fs";
+import axios from "axios";
 
 const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
 
@@ -380,7 +380,7 @@ wpt.runTest(testURL, options, (err, result) => {
 <h3 id="run-tests-on-multiple-urls">Run tests on multiple URLs</h3>
 
 ```js
-const WebPageTest = require("webpagetest");
+import WebPageTest from "webpagetest";
 
 const wpt = new WebPageTest("www.webpagetest.org", "YOUR_API_KEY");
 const finalResults = [];
@@ -453,7 +453,7 @@ const runTest = (wpt, url, options) => {
 <h3 id="create-a-url-endpoint">Create a URL endpoint</h3>
 
 ```js
-const WebPageTest = require("webpagetest");
+import WebPageTest from "webpagetest";
 
 const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
 
@@ -487,7 +487,7 @@ wpt.runTest(script, options, (err, result) => {
 <h3 id="run-a-test-and-check-a-budget-using-testspecs">Run a test and check a budget using testspecs</h3>
 
 ```js
-const WebPageTest = require("webpagetest");
+import WebPageTest from "webpagetest";
 
 const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
 

@@ -1,6 +1,6 @@
-const WebPageTest = require("webpagetest");
-const fs = require("fs");
-const axios = require("axios");
+import WebPageTest from "webpagetest";
+import fs from "fs";
+import axios from "axios";
 
 const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
 

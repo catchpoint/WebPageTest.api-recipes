@@ -1,4 +1,4 @@
-const WebPageTest = require("webpagetest");
+import WebPageTest from "webpagetest";
 
 const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
 
@@ -30,4 +30,3 @@ wpt.runTest(testURL, options, (err, result) => {
     console.log(err);
   }
 });
-
