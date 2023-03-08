@@ -600,6 +600,6 @@ wpt.runTest(script, options, (err, result) => {
 ```
 ![Run a test using webpagetest chrome recorder](/assets/images/webpagetest-chrome-recorder.png "testspecs")
 
-Check [Webpagetest Chrome Recorder](https://github.com/WebPageTest/recorder-to-webpagetest-chrome-extension) for more details
+Check [Webpagetest Chrome Recorder](https://github.com/WebPageTest/Recorder-To-WPT-Script) for more details
 
 [Source](webpagetest-chrome-recorder.js)
