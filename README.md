@@ -24,6 +24,7 @@ WebPageTest API Recipes
 - [Create a URL endpoint](#create-a-url-endpoint)
 - [Run a test and check a budget using testspecs](#run-a-test-and-check-a-budget-using-testspecs)
 - [Run a test using webpagetest chrome recorder](#run-a-test-using-webpagetest-chrome-recorder)
+- [Retrieving chrome trace data](#retrieving-chrome-trace-data)
 
 <h3 id="emulate-a-slow-network">Emulate a slow network</h3>
 
@@ -631,8 +632,31 @@ wpt.runTest(script, options, (err, result) => {
 });
 
 ```
-![Run a test using webpagetest chrome recorder](/assets/images/webpagetest-chrome-recorder.png "testspecs")
+![Run a test using webpagetest chrome recorder](/assets/images/webpagetest-chrome-recorder.png "webpagetest chrome recorder")
 
 Check [Webpagetest Chrome Recorder](https://github.com/WebPageTest/Recorder-To-WPT-Script) for more details
 
 [Source](webpagetest-chrome-recorder.js)
+
+<h3 id="retrieving-chrome-trace-data">Retrieving chrome trace data</h3>
+
+```js
+import WebPageTest from "webpagetest";
+
+const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+
+let testId = "YOUR_TEST_ID"; //Your URL here
+
+// Retrieving Chrome Trace Data
+wpt.getChromeTraceData(testId, (err, result) => {
+  if (result) {
+    console.log(result);
+  } else {
+    console.log(err);
+  }
+});
+
+```
+![Retrieving chrome trace data](/assets/images/chrometracedata.png "chrome trace")
+
+[Source](getChromeTraceData.js)
