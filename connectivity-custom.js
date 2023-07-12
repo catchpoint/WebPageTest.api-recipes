@@ -1,6 +1,7 @@
 import WebPageTest from "webpagetest";
 
-const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+const wptServer = "https://www.webpagetest.org";
+const wpt = new WebPageTest(wptServer, "YOUR_API_KEY");
 
 let testURL = "https://docs.webpagetest.org/"; //Your URL here
 

@@ -31,7 +31,8 @@ WebPageTest API Recipes
 ```js
 import WebPageTest from "webpagetest";
 
-const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+const wptServer = "https://www.webpagetest.org";
+const wpt = new WebPageTest(wptServer, "YOUR_API_KEY");
 
 let testURL = "https://docs.webpagetest.org/"; //Your URL here
 
@@ -60,7 +61,8 @@ wpt.runTest(testURL, options, (err, result) => {
 ```js
 import WebPageTest from "webpagetest";
 
-const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+const wptServer = "https://www.webpagetest.org";
+const wpt = new WebPageTest(wptServer, "YOUR_API_KEY");
 
 let testURL = "https://docs.webpagetest.org/"; //Your URL here
 
@@ -90,7 +92,8 @@ wpt.runTest(testURL, options, (err, result) => {
 ```js
 import WebPageTest from "webpagetest";
 
-const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+const wptServer = "https://www.webpagetest.org";
+const wpt = new WebPageTest(wptServer, "YOUR_API_KEY");
 
 let testURL = "https://docs.webpagetest.org/"; //Your URL here
 
@@ -123,7 +126,8 @@ wpt.runTest(testURL, options, (err, result) => {
 ```js
 import WebPageTest from "webpagetest";
 
-const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+const wptServer = "https://www.webpagetest.org";
+const wpt = new WebPageTest(wptServer, "YOUR_API_KEY");
 
 let testURL = "https://docs.webpagetest.org/"; //Your URL here
 
@@ -155,7 +159,8 @@ wpt.runTest(testURL, options, (err, result) => {
 ```js
 import WebPageTest from "webpagetest";
 
-const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+const wptServer = "https://www.webpagetest.org";
+const wpt = new WebPageTest(wptServer, "YOUR_API_KEY");
 
 let testURL = "https://docs.webpagetest.org/"; //Your URL here
 
@@ -190,7 +195,8 @@ wpt.runTest(testURL, options, (err, result) => {
 ```js
 import WebPageTest from "webpagetest";
 
-const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+const wptServer = "https://www.webpagetest.org";
+const wpt = new WebPageTest(wptServer, "YOUR_API_KEY");
 
 let testURL = "https://www.webpagetest.org/"; //Your URL here
 
@@ -232,7 +238,8 @@ wpt.runTest(testURL, options, (err, result) => {
 ```js
 import WebPageTest from "webpagetest";
 
-const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+const wptServer = "https://www.webpagetest.org";
+const wpt = new WebPageTest(wptServer, "YOUR_API_KEY");
 
 let testURL = "https://theverge.com"; //Your URL here
 
@@ -262,7 +269,8 @@ import WebPageTest from "webpagetest";
 import fs from "fs";
 import axios from "axios";
 
-const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+const wptServer = "https://www.webpagetest.org";
+const wpt = new WebPageTest(wptServer, "YOUR_API_KEY");
 
 let testURL = "https://docs.webpagetest.org/"; //Your URL here
 
@@ -299,7 +307,8 @@ wpt.runTest(testURL, options, (err, result) => {
 ```js
 import WebPageTest from "webpagetest";
 
-const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+const wptServer = "https://www.webpagetest.org";
+const wpt = new WebPageTest(wptServer, "YOUR_API_KEY");
 
 let testURL = "https://docs.webpagetest.org/"; //Your URL here
 
@@ -340,7 +349,8 @@ wpt.runTest(testURL, options, (err, result) => {
 ```js
 import WebPageTest from "webpagetest";
 
-const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+const wptServer = "https://www.webpagetest.org";
+const wpt = new WebPageTest(wptServer, "YOUR_API_KEY");
 
 let options = {
   pollResults: 5,
@@ -380,7 +390,8 @@ import WebPageTest from "webpagetest";
 import fs from "fs";
 import axios from "axios";
 
-const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+const wptServer = "https://www.webpagetest.org";
+const wpt = new WebPageTest(wptServer, "YOUR_API_KEY");
 
 let testURL = "https://docs.webpagetest.org/"; //Your URL here
 
@@ -490,7 +501,8 @@ const runTest = (wpt, url, options) => {
 ```js
 import WebPageTest from "webpagetest";
 
-const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+const wptServer = "https://www.webpagetest.org";
+const wpt = new WebPageTest(wptServer, "YOUR_API_KEY");
 
 let options = {
   dryRun: true, // outputs the api endpoint
@@ -524,7 +536,8 @@ wpt.runTest(script, options, (err, result) => {
 ```js
 import WebPageTest from "webpagetest";
 
-const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+const wptServer = "https://www.webpagetest.org";
+const wpt = new WebPageTest(wptServer, "YOUR_API_KEY");
 
 let testURL = "https://docs.webpagetest.org/"; //Your URL here
 
@@ -613,7 +626,8 @@ const script = await WPTStringifyChromeRecording(recordingContent);
 console.log("Stringified Webpagetest Recorder Script: \n\n" + script + "\n");
 
 // Initializing webpagetest
-const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+const wptServer = "https://www.webpagetest.org";
+const wpt = new WebPageTest(wptServer, "YOUR_API_KEY");
 
 let options = {
   firstViewOnly: true,
@@ -643,7 +657,8 @@ Check [Webpagetest Chrome Recorder](https://github.com/WebPageTest/Recorder-To-W
 ```js
 import WebPageTest from "webpagetest";
 
-const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+const wptServer = "https://www.webpagetest.org";
+const wpt = new WebPageTest(wptServer, "YOUR_API_KEY");
 
 let testId = "YOUR_TEST_ID"; //Your URL here
 

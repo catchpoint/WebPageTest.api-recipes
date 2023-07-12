@@ -47,7 +47,8 @@ const script = await WPTStringifyChromeRecording(recordingContent);
 console.log("Stringified Webpagetest Recorder Script: \n\n" + script + "\n");
 
 // Initializing webpagetest
-const wpt = new WebPageTest("https://www.webpagetest.org", "YOUR_API_KEY");
+const wptServer = "https://www.webpagetest.org";
+const wpt = new WebPageTest(wptServer, "YOUR_API_KEY");
 
 let options = {
   firstViewOnly: true,

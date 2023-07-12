@@ -1,6 +1,8 @@
 import WebPageTest from "webpagetest";
 
-const wpt = new WebPageTest("www.webpagetest.org", "YOUR_API_KEY");
+const wptServer = "https://www.webpagetest.org";
+const wpt = new WebPageTest(wptServer, "YOUR_API_KEY");
+
 const finalResults = [];
 
 // Your list of URLs to test
