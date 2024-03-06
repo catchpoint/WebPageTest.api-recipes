@@ -25,6 +25,7 @@ WebPageTest API Recipes
 - [Run a test and check a budget using testspecs](#run-a-test-and-check-a-budget-using-testspecs)
 - [Run a test using webpagetest chrome recorder](#run-a-test-using-webpagetest-chrome-recorder)
 - [Retrieving chrome trace data](#retrieving-chrome-trace-data)
+- [Retrieving response body](#retrieving-response-body)
 
 <h3 id="emulate-a-slow-network">Emulate a slow network</h3>
 
@@ -675,3 +676,33 @@ wpt.getChromeTraceData(testId, (err, result) => {
 ![Retrieving chrome trace data](/assets/images/chrometracedata.png "chrome trace")
 
 [Source](getChromeTraceData.js)
+
+<h3 id="retrieving-response-body">Retrieving Response Body</h3>
+
+```js
+import WebPageTest from "webpagetest";
+
+const wptServer = "https://www.webpagetest.org";
+const wpt = new WebPageTest(wptServer, "YOUR_API_KEY");
+
+let testID = "YOUR_TEST_ID";
+
+let options = {
+  run: 1, // the run from which you'd want to fetch the response body
+  request: 2, // the request number same as waterfall
+  cached: 0, // check for the repeat view
+};
+
+// Run the test
+wpt.getResponseBody(testID, options, (err, result) => {
+  if (result) {
+    console.log(result);
+  } else {
+    console.log(err);
+  }
+});
+
+```
+![Retrieving Response Body](/assets/images/getresponsebody.png "Response Body")
+
+[Source](getResponseBody.js)
