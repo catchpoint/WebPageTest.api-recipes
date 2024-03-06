@@ -693,7 +693,7 @@ let options = {
   cached: 0, // check for the repeat view
 };
 
-// Retrieving response body (Make sure you've enabled the save response body)
+// Retrieving response body (Make sure you've enabled the save response body on this test)
 wpt.getResponseBody(testID, options, (err, result) => {
   if (result) {
     console.log(result);
